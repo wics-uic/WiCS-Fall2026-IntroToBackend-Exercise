@@ -1,0 +1,27 @@
+---
+import Card from '../components/Card.astro';
+import ContactMe from '../components/ContactMe.astro';
+
+import {getCards} from "../libs/addCard.js"
+import {postMessage} from "../libs/postMessage.js"
+import wicslogo from "../assets/wicslogo.png"
+
+export const prerender = false;
+
+// Handle the contact form when it is submitted to this page
+let status = "";
+---
+
+<!-- Main Content -->
+<main class="flex-1 max-w-4xl mx-auto px-4 py-8 w-full space-y-12">
+  <!-- Component Section -->
+  <section class="space-y-6">
+    <Card name = "Billy" image = {wicslogo} description = "random"/>
+  </section>
+
+  <!-- Contact Me Section -->
+  <section id="contact" class="space-y-4">
+    <!-- Contact Me Form Component -->
+    <ContactMe status={status} />
+  </section>
+</main>

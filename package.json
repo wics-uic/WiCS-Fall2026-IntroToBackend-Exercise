@@ -1,0 +1,20 @@
+{
+  "name": "wics-astro-project",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
+    "start": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
+    "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
+    "astro": "ASTRO_TELEMETRY_DISABLED=1 astro",
+    "test:post": "node scripts/test-post.js"
+  },
+  "dependencies": {
+    "@astrojs/node": "^8.3.4",
+    "@astrojs/tailwind": "^5.1.5",
+    "astro": "^4.16.18",
+    "csv-parse": "^7.0.3",
+    "tailwindcss": "^3.4.17"
+  }
+}

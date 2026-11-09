@@ -1,0 +1,12 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# environment variables
+.env.local
+
+# macOS
+.DS_Store
