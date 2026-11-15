@@ -2,21 +2,54 @@
 import Card from '../components/Card.astro';
 import ContactMe from '../components/ContactMe.astro';
 
-import {getCards} from "../libs/addCard.js"
+import {getCards} from "../libs/addCard.js";
 import {postMessage} from "../libs/postMessage.js"
+
 import wicslogo from "../assets/wicslogo.png"
+import { BRAND } from 'astro:schema';
 
 export const prerender = false;
 
 // Handle the contact form when it is submitted to this page
 let status = "";
+if (Astro.request.method == "POST"){
+  try {
+    const type = Astro.request.headers.get("content-type") ?? "";
+    console.log("POST content-type:", type);
+
+    const data = type.includes("application/json") ? await Astro.request.json() : Object.fromEntries(await Astro.request.formData())
+
+    await postMessage({
+      name: data.name,
+      email: data.email,
+      message: data.message,
+    });
+
+    status = "Message Sent";
+
+  }catch (err){
+    console.log("Failed to send message: ", err);
+    status = "failed request";
+  }
+}
+
+let cards = [];
+try{
+  cards = await getCards();
+}catch(err){
+  console.error("Failed to load cards: ", err);
+}
+
 ---
 
 <!-- Main Content -->
 <main class="flex-1 max-w-4xl mx-auto px-4 py-8 w-full space-y-12">
   <!-- Component Section -->
   <section class="space-y-6">
-    <Card name = "Billy" image = {wicslogo} description = "random"/>
+    {cards.map((c) => 
+      <Card {...c}/>
+    )}
+    <!-- <Card name = "Billy" image = {wicslogo} description = "random"/> -->
   </section>
 
   <!-- Contact Me Section -->
